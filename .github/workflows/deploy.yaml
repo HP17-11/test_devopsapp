@@ -17,7 +17,7 @@ jobs:
     - name : "Building Docker Image"
       run: docker build . -t hp1711/test_devopsapp
 
-    - run : ECHO ${{ secrets.DOCKERHUB_PASSWORD }} | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+    - run : ECHO "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
     - name : "Pushing Docker Image"
       run: docker push hp1711/test_devopsapp:latest 
