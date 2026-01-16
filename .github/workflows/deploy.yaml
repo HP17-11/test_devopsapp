@@ -1,0 +1,23 @@
+name: "Deploy Pipeline"
+
+on:
+  push:  
+    branches: [ "main" ]
+
+
+jobs:
+  
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name : "Building Docker Image"
+      run: docker build . -t hp1711/test_devopsapp
+
+    - run : ECHO ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+    - name : "Pushing Docker Image"
+      run: docker push hp1711/test_devopsapp:latest 
